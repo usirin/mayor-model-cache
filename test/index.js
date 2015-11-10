@@ -1,5 +1,6 @@
 import { Reactor } from 'nuclear-js'
 import { assert } from 'chai'
+import dispatch from 'mayor-dispatch'
 
 let reactor = new Reactor()
 
@@ -7,9 +8,6 @@ import { register } from '../src/'
 
 let { actions, getters } = register(reactor)
 
-function dispatch(action) {
-  reactor.dispatch(action.type, action.payload)
-}
 
 describe('MayorModelCache', () => {
   afterEach(() => {
@@ -54,7 +52,7 @@ describe('MayorModelCache', () => {
 
         let _action = actions.load(model, rawUser)
 
-        dispatch(actions.load(model, rawUser))
+        dispatch(reactor, actions.load(model, rawUser))
 
         let user = reactor.evaluate(getters.byId('user', '1'))
 
@@ -76,7 +74,7 @@ describe('MayorModelCache', () => {
           lastName: 'Doe'
         }]
 
-        dispatch(actions.load(model, rawUsers))
+        dispatch(reactor, actions.load(model, rawUsers))
 
         let john = reactor.evaluate(getters.byId('user', '1'))
         let jane = reactor.evaluate(getters.byId('user', '2'))
@@ -101,12 +99,12 @@ describe('MayorModelCache', () => {
           lastName: 'Doe'
         }]
 
-        dispatch(actions.load(model, rawUsers))
+        dispatch(reactor, actions.load(model, rawUsers))
 
         let john = reactor.evaluate(getters.byId('user', '1'))
         let jane = reactor.evaluate(getters.byId('user', '2'))
 
-        dispatch(actions.remove(model, { id: '1' }))
+        dispatch(reactor, actions.remove(model, { id: '1' }))
 
         let _john = reactor.evaluate(getters.byId('user', '1'))
 
