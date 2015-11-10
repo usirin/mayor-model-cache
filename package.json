@@ -1,6 +1,6 @@
 {
   "name": "mayor-model-cache",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A nuclear-js module provides a cache for your models",
   "main": "lib/index.js",
   "scripts": {
